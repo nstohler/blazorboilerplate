@@ -1,4 +1,5 @@
 ﻿using System;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,13 +34,15 @@ namespace BlazorBoilerplate.Server
             }
         }
 
+        // https://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddCommandLine(args)
                     .Build())
+                .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>()
-                 .UseSerilog()
+                .UseSerilog()
                 .Build();
     }
 }

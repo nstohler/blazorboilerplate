@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlazorBoilerplate.Server.AutofacTest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorBoilerplate.Server.Controllers
@@ -11,12 +12,20 @@ namespace BlazorBoilerplate.Server.Controllers
     [ApiController]
     public class DemoController : ControllerBase
     {
+        private readonly ITester _tester;
+
+        public DemoController(ITester tester)
+        {
+            _tester = tester;
+        }
+
         [HttpGet("")]
         public IActionResult Get()
         {
             return Ok(new
             {
-                Message = "wusel"
+                Message = "wusel",
+                Test    = _tester.RunTest("wusel"),
             });
         }
 
