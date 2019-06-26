@@ -13,7 +13,7 @@ namespace BlazorBoilerplate.Server
         {
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings" + (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development ? ".Development.json" : ".json"))
-                .AddJsonFile("appsettings.Production.json")
+                .AddJsonFile("appsettings.Production.json", true, true)
                 .Build();
 
             Log.Logger = new LoggerConfiguration()
