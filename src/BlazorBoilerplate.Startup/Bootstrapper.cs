@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
@@ -21,9 +22,9 @@ namespace BlazorBoilerplate.Startup
 
             _autofacContainer = Bootstrapper.CreateContainer(assemblies, builder =>
             {
-                populateWithServices?.Invoke(builder);  // populate with ASP.NET Core registered services
+                populateWithServices?.Invoke(builder); // populate with ASP.NET Core registered services
 
-                //AutoMapperConfig.RegisterForDI(builder, assemblies);
+                AutoMapperConfig.RegisterForDI(builder, assemblies, () => _autofacContainer);
             });
 
             EnsureArg.IsNotNull(_autofacContainer, nameof(_autofacContainer));
