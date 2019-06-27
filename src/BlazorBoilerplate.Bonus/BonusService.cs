@@ -11,5 +11,11 @@ namespace BlazorBoilerplate.Bonus
             var rnd = new Random();
             return input + rnd.Next(1, 11);
         }
+
+        public string AddStuff(string text)
+        {
+            var rnd = new Random();
+            return text + new string('!', rnd.Next(1, 6));
+        }
     }
 }

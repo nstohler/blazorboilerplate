@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using BlazorBoilerplate.Startup;
 
 namespace BlazorBoilerplate.Server
@@ -151,6 +152,9 @@ namespace BlazorBoilerplate.Server
             //builder.RegisterModule(new AutofacBootstrapModule());
 
             //this.ApplicationContainer = builder.Build();
+
+            var assemblies = AutofacBootstrapModule.GetAssemblies().ToList();
+            services.AddAutoMapper(assemblies);
 
             _applicationContainer = Bootstrapper.Initialize(builder =>
             {

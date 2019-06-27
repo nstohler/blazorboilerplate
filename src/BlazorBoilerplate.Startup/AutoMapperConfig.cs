@@ -23,8 +23,8 @@ namespace BlazorBoilerplate.Startup
 
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper())
                 .As<IMapper>()
-                .InstancePerLifetimeScope()
-                //.SingleInstance()
+                //.InstancePerLifetimeScope()
+                .SingleInstance()
                 ;
         }
 
