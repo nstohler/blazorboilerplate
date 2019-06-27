@@ -10,5 +10,6 @@ namespace BlazorBoilerplate.Bonus
     {
         int CalculateBonus(int input);
         string AddStuff(string text);
+        DateTime GetDate();
     }
 }

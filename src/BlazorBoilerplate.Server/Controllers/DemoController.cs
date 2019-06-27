@@ -54,6 +54,7 @@ namespace BlazorBoilerplate.Server.Controllers
             {
                 SampleData = sampleData,
                 Vm         = vm,
+                date       = _bonusService.GetDate()
             });
         }
 

@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorBoilerplate.Startup",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorBoilerplate.Bonus", "BlazorBoilerplate.Bonus\BlazorBoilerplate.Bonus.csproj", "{518515EF-533E-4D70-972C-EABEEB467BEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.LibLog", "Core.LibLog\Core.LibLog.csproj", "{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,18 @@ Global
 		{518515EF-533E-4D70-972C-EABEEB467BEE}.Release|x64.Build.0 = Release|Any CPU
 		{518515EF-533E-4D70-972C-EABEEB467BEE}.Release|x86.ActiveCfg = Release|Any CPU
 		{518515EF-533E-4D70-972C-EABEEB467BEE}.Release|x86.Build.0 = Release|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Debug|x64.Build.0 = Debug|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Debug|x86.Build.0 = Debug|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x64.ActiveCfg = Release|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x64.Build.0 = Release|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x86.ActiveCfg = Release|Any CPU
+		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
