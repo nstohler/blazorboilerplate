@@ -26,9 +26,10 @@ namespace BlazorBoilerplate.Startup
             }
 
             // autoMapper registration via assemblies
+            //AutoMapperConfig.RegisterForDI(builder, assemblies)
         }
 
-        private IEnumerable<Assembly> GetAssemblies()
+        public static IEnumerable<Assembly> GetAssemblies()
         {
             // var assemblies = new List<Assembly>();
 

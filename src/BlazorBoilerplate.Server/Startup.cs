@@ -19,6 +19,7 @@ using BlazorBoilerplate.Server.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using BlazorBoilerplate.Startup;
 
 namespace BlazorBoilerplate.Server
@@ -27,6 +28,8 @@ namespace BlazorBoilerplate.Server
     {
         public IConfiguration Configuration { get; }
 
+        private IContainer _applicationContainer;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,7 +37,7 @@ namespace BlazorBoilerplate.Server
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite("Filename=data.db"));  // Sql Lite / file database
@@ -124,20 +127,54 @@ namespace BlazorBoilerplate.Server
 
             services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
             services.AddTransient<IEmailService, EmailService>();
+
+            // https://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html#quick-start-without-configurecontainer
+
+            //// Create the container builder.
+            //var builder = new ContainerBuilder();
+
+            //// Register dependencies, populate the services from
+            //// the collection, and build the container.
+            ////
+            //// Note that Populate is basically a foreach to add things
+            //// into Autofac that are in the collection. If you register
+            //// things in Autofac BEFORE Populate then the stuff in the
+            //// ServiceCollection can override those things; if you register
+            //// AFTER Populate those registrations can override things
+            //// in the ServiceCollection. Mix and match as needed.
+            //builder.Populate(services);
+            ////builder.RegisterType<MyType>().As<IMyType>();
+            
+            //// autofac registrations go here
+            //// TODO: use Bootstrapper
+            
+            //builder.RegisterModule(new AutofacBootstrapModule());
+
+            //this.ApplicationContainer = builder.Build();
+
+            _applicationContainer = Bootstrapper.Initialize(builder =>
+            {
+                builder.Populate(services);
+
+                
+            });
+
+            // Create the IServiceProvider based on the container.
+            return new AutofacServiceProvider(_applicationContainer);
         }
 
-        // ConfigureContainer is where you can register things directly
-        // with Autofac. This runs after ConfigureServices so the things
-        // here will override registrations made in ConfigureServices.
-        // Don't build the container; that gets done for you. If you
-        // need a reference to the container, you need to use the
-        // "Without ConfigureContainer" mechanism shown later.
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            builder.RegisterModule(new AutofacBootstrapModule());
-
-            builder.RegisterModule(new AutofacModule());
-        }
+        //// ConfigureContainer is where you can register things directly
+        //// with Autofac. This runs after ConfigureServices so the things
+        //// here will override registrations made in ConfigureServices.
+        //// Don't build the container; that gets done for you. If you
+        //// need a reference to the container, you need to use the
+        //// "Without ConfigureContainer" mechanism shown later.
+        //public void ConfigureContainer(ContainerBuilder builder)
+        //{
+        //    builder.RegisterModule(new AutofacBootstrapModule());
+            
+        //    builder.RegisterModule(new AutofacModule());
+        //}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

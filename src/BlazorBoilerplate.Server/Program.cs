@@ -40,7 +40,7 @@ namespace BlazorBoilerplate.Server
                 .UseConfiguration(new ConfigurationBuilder()
                     .AddCommandLine(args)
                     .Build())
-                .ConfigureServices(services => services.AddAutofac())
+                // .ConfigureServices(services => services.AddAutofac())
                 .UseStartup<Startup>()
                 .UseSerilog()
                 .Build();
