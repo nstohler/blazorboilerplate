@@ -36,8 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlazorBoilerplate.Bonus\BlazorBoilerplate.Bonus.csproj" />
     <ProjectReference Include="..\BlazorBoilerplate.Client\BlazorBoilerplate.Client.csproj" />
     <ProjectReference Include="..\BlazorBoilerplate.Shared\BlazorBoilerplate.Shared.csproj" />
+    <ProjectReference Include="..\BlazorBoilerplate.Startup\BlazorBoilerplate.Startup.csproj" />
   </ItemGroup>
 
   <ItemGroup>

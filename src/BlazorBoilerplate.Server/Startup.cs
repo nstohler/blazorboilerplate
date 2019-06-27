@@ -19,6 +19,7 @@ using BlazorBoilerplate.Server.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Autofac;
+using BlazorBoilerplate.Startup;
 
 namespace BlazorBoilerplate.Server
 {
@@ -133,6 +134,8 @@ namespace BlazorBoilerplate.Server
         // "Without ConfigureContainer" mechanism shown later.
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.RegisterModule(new AutofacBootstrapModule());
+
             builder.RegisterModule(new AutofacModule());
         }
 
