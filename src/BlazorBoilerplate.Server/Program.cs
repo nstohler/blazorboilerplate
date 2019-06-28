@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using BlazorBoilerplate.Server.Data;
 using Core.LibLog.Logging;
 using EnsureThat;
 using Microsoft.AspNetCore;
@@ -16,7 +18,7 @@ namespace BlazorBoilerplate.Server
     {
         private static ILog _logger;
 
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             var appsettingsEnvName =
                 Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development
@@ -45,7 +47,7 @@ namespace BlazorBoilerplate.Server
                 var webHost        = webHostBuilder.Build();
 
                 // Seed etc here:
-                Seed(webHost);
+                await Seed(webHost);
 
                 webHost.Run();
 
@@ -58,7 +60,7 @@ namespace BlazorBoilerplate.Server
             }
         }
 
-        private static void Seed(IWebHost webHost)
+        private static async Task Seed(IWebHost webHost)
         {
             // seed here! 
             // https://wildermuth.com/2018/01/10/Re-thinking-Running-Migrations-and-Seeding-in-ASP-NET-Core-2-0
@@ -73,12 +75,9 @@ namespace BlazorBoilerplate.Server
 
                 if (hostingEnvironment.IsDevelopment() || config["Startup:RunDbSeeders"] == bool.TrueString)
                 {
-                    // Dev/Debug: recreate database on every startup
-
-                    // TODO: seed user roles etc here
-
-                    //    var meteoDatabase = scope.ServiceProvider.GetService<IMeteoDatabase>();
-                    //    meteoDatabase.PrepareDatabase(); // use .Wait() for async methods!                    
+                    // Dev/Debug: seed user roles and other data here
+                    var coreDataSeeder = scope.ServiceProvider.GetService<ICoreDataSeeder>();
+                    await coreDataSeeder.Seed();
                 }
 
                 //var localPathHangfireService = scope.ServiceProvider.GetService<ILocalPathHangfireService>();

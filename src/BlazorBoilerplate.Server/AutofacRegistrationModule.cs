@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
 using BlazorBoilerplate.Server.AutofacTest;
+using BlazorBoilerplate.Server.Data;
 
 namespace BlazorBoilerplate.Server
 {
-    public class AutofacModule : Module
+    public class AutofacRegistrationModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -17,6 +18,12 @@ namespace BlazorBoilerplate.Server
 
             builder.RegisterType<Tester>()
                 .As<ITester>()
+                .InstancePerLifetimeScope()
+                //.SingleInstance()
+                ;
+
+            builder.RegisterType<CoreDataSeeder>()
+                .As<ICoreDataSeeder>()
                 .InstancePerLifetimeScope()
                 //.SingleInstance()
                 ;
