@@ -27,13 +27,14 @@ namespace BlazorBoilerplate.Server
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        private readonly IConfiguration      _configuration;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private          IContainer          _applicationContainer;
 
-        private IContainer _applicationContainer;
-
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
-            Configuration = configuration;
+            _configuration      = configuration;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -41,8 +42,8 @@ namespace BlazorBoilerplate.Server
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite("Filename=data.db"));  // Sql Lite / file database
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); //SQL Server Database
+                options.UseSqlite("Filename=data.db")); // Sql Lite / file database
+            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); //SQL Server Database
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddRoles<IdentityRole<Guid>>()
@@ -64,17 +65,17 @@ namespace BlazorBoilerplate.Server
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit           = false;
+                options.Password.RequiredLength         = 6;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase       = false;
+                options.Password.RequireLowercase       = false;
                 //options.Password.RequiredUniqueChars = 6;
 
                 // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.DefaultLockoutTimeSpan  = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.AllowedForNewUsers      = true;
 
                 // User settings
                 options.User.RequireUniqueEmail = false;
@@ -111,9 +112,10 @@ namespace BlazorBoilerplate.Server
             {
                 config.PostProcess = document =>
                 {
-                    document.Info.Version     = "v1";
-                    document.Info.Title       = "Blazor Boilerplate";
-                    document.Info.Description = "Blazor Boilerplate / Starter Template using the  (ASP.NET Core Hosted) (dotnet new blazorhosted) model. Hosted by an ASP.NET Core server";
+                    document.Info.Version = "v1";
+                    document.Info.Title   = "Blazor Boilerplate";
+                    document.Info.Description =
+                        "Blazor Boilerplate / Starter Template using the  (ASP.NET Core Hosted) (dotnet new blazorhosted) model. Hosted by an ASP.NET Core server";
                 };
             });
 
@@ -126,59 +128,21 @@ namespace BlazorBoilerplate.Server
                 });
             });
 
-            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddSingleton<IEmailConfiguration>(_configuration.GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>());
             services.AddTransient<IEmailService, EmailService>();
 
-            // https://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html#quick-start-without-configurecontainer
-
-            //// Create the container builder.
-            //var builder = new ContainerBuilder();
-
-            //// Register dependencies, populate the services from
-            //// the collection, and build the container.
-            ////
-            //// Note that Populate is basically a foreach to add things
-            //// into Autofac that are in the collection. If you register
-            //// things in Autofac BEFORE Populate then the stuff in the
-            //// ServiceCollection can override those things; if you register
-            //// AFTER Populate those registrations can override things
-            //// in the ServiceCollection. Mix and match as needed.
-            //builder.Populate(services);
-            ////builder.RegisterType<MyType>().As<IMyType>();
-            
-            //// autofac registrations go here
-            //// TODO: use Bootstrapper
-            
-            //builder.RegisterModule(new AutofacBootstrapModule());
-
-            //this.ApplicationContainer = builder.Build();
-
+            // AutoMapper DI registration
             var assemblies = AutofacBootstrapModule.GetAssemblies().ToList();
             services.AddAutoMapper(assemblies);
 
-            _applicationContainer = Bootstrapper.Initialize(builder =>
-            {
-                builder.Populate(services);
-
-                
-            });
+            // Autofac bootstrapping
+            // https://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html#quick-start-without-configurecontainer
+            _applicationContainer = Bootstrapper.Initialize(builder => { builder.Populate(services); });
 
             // Create the IServiceProvider based on the container.
             return new AutofacServiceProvider(_applicationContainer);
         }
-
-        //// ConfigureContainer is where you can register things directly
-        //// with Autofac. This runs after ConfigureServices so the things
-        //// here will override registrations made in ConfigureServices.
-        //// Don't build the container; that gets done for you. If you
-        //// need a reference to the container, you need to use the
-        //// "Without ConfigureContainer" mechanism shown later.
-        //public void ConfigureContainer(ContainerBuilder builder)
-        //{
-        //    builder.RegisterModule(new AutofacBootstrapModule());
-            
-        //    builder.RegisterModule(new AutofacRegistrationModule());
-        //}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
