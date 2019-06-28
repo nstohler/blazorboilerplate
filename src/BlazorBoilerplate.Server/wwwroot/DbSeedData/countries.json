@@ -1,0 +1,21 @@
+[
+
+  {
+    "moniker": "united-states-of-america",
+    "name": "United States of America",
+    "isoCode2": "US",
+    "isoCode3": "USA"
+  },
+  {
+    "moniker": "switzerland",
+    "name": "Switzerland",
+    "isoCode2": "CH",
+    "isoCode3": "CHE"
+  },
+  {
+    "moniker": "finland",
+    "name": "Finland",
+    "isoCode2": "FI",
+    "isoCode3": "FIN"
+  }
+]
