@@ -1,11 +1,13 @@
 ﻿using System;
 using Autofac.Extensions.DependencyInjection;
 using Core.LibLog.Logging;
+using EnsureThat;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Serilog;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using Microsoft.Extensions.Logging;
 
 namespace BlazorBoilerplate.Server
@@ -38,7 +40,15 @@ namespace BlazorBoilerplate.Server
             try
             {
                 Log.Information("Starting web server host");
-                BuildWebHost(args).Run();
+
+                var webHostBuilder = CreateWebHostBuilder(args);
+                var webHost        = webHostBuilder.Build();
+
+                // Seed etc here:
+                Seed(webHost);
+
+                webHost.Run();
+
                 return 0;
             }
             catch (Exception ex)
@@ -48,16 +58,60 @@ namespace BlazorBoilerplate.Server
             }
         }
 
+        private static void Seed(IWebHost webHost)
+        {
+            // seed here! 
+            // https://wildermuth.com/2018/01/10/Re-thinking-Running-Migrations-and-Seeding-in-ASP-NET-Core-2-0
+            //using (var scope = host.Start().Services.CreateScope())
+            using (var scope = webHost.Services.CreateScope())
+            {
+                var hostingEnvironment = scope.ServiceProvider.GetService<IWebHostEnvironment>();
+                EnsureArg.IsNotNull(hostingEnvironment);
+
+                var config = scope.ServiceProvider.GetService<IConfiguration>();
+                EnsureArg.IsNotNull(config);
+
+                if (hostingEnvironment.IsDevelopment() || config["Startup:RunDbSeeders"] == bool.TrueString)
+                {
+                    // Dev/Debug: recreate database on every startup
+
+                    // TODO: seed user roles etc here
+
+                    //    var meteoDatabase = scope.ServiceProvider.GetService<IMeteoDatabase>();
+                    //    meteoDatabase.PrepareDatabase(); // use .Wait() for async methods!                    
+                }
+
+                //var localPathHangfireService = scope.ServiceProvider.GetService<ILocalPathHangfireService>();
+                //EnsureArg.IsNotNull(localPathHangfireService);
+
+                //if (hostingEnvironment.IsDevelopment() || config["Startup:RunDbSeeders"] == bool.TrueString)
+                //{
+                //    // Dev/Debug: recreate database on every startup
+                //    var meteoDatabase = scope.ServiceProvider.GetService<IMeteoDatabase>();
+                //    meteoDatabase.PrepareDatabase(); // use .Wait() for async methods!                    
+                //}
+
+                //localPathHangfireService.ValidateConfiguration();
+            }
+        }
+
         // https://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseConfiguration(new ConfigurationBuilder()
-                    .AddCommandLine(args)
-                    .Build())
-                // .ConfigureServices(services => services.AddAutofac())
-                .UseStartup<Startup>()
-                .UseSerilog()
-                .Build();
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var host = WebHost.CreateDefaultBuilder(args)
+
+                    //.UseConfiguration(new ConfigurationBuilder()  // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2#default-configuration
+                    //    .AddCommandLine(args)
+                    //    .Build())
+
+                    // .ConfigureServices(services => services.AddAutofac())
+                    .UseStartup<Startup>()
+                    .UseSerilog()
+                // .Build()
+                ;
+
+            return host;
+        }
 
         //private static void ConfigureLogger(WebHostBuilderContext hostingContext, ILoggingBuilder logging)
         //{
