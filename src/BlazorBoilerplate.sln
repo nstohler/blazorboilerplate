@@ -8,11 +8,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBoilerplate.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBoilerplate.Shared", "BlazorBoilerplate.Shared\BlazorBoilerplate.Shared.csproj", "{10C5F5DE-4DB1-4368-837B-3A90394073E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorBoilerplate.Startup", "BlazorBoilerplate.Startup\BlazorBoilerplate.Startup.csproj", "{E4097A27-7CF9-4385-9475-ED551E4736E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBoilerplate.Startup", "BlazorBoilerplate.Startup\BlazorBoilerplate.Startup.csproj", "{E4097A27-7CF9-4385-9475-ED551E4736E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorBoilerplate.Bonus", "BlazorBoilerplate.Bonus\BlazorBoilerplate.Bonus.csproj", "{518515EF-533E-4D70-972C-EABEEB467BEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBoilerplate.Bonus", "BlazorBoilerplate.Bonus\BlazorBoilerplate.Bonus.csproj", "{518515EF-533E-4D70-972C-EABEEB467BEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.LibLog", "Core.LibLog\Core.LibLog.csproj", "{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.LibLog", "Core.LibLog\Core.LibLog.csproj", "{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BC_HelloWorld", "BC_HelloWorld", "{5A9DAFFA-FC38-497B-A952-D13D8436C94D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld.Controllers", "HelloWorld.Controllers\HelloWorld.Controllers.csproj", "{FC5F6E52-6CEE-4977-912F-D815E828F67B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,9 +100,24 @@ Global
 		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x64.Build.0 = Release|Any CPU
 		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x86.ActiveCfg = Release|Any CPU
 		{7268FA9C-2BE5-48BD-8FC6-2BF883E3CAD7}.Release|x86.Build.0 = Release|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Debug|x64.Build.0 = Debug|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Release|x64.ActiveCfg = Release|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Release|x64.Build.0 = Release|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FC5F6E52-6CEE-4977-912F-D815E828F67B} = {5A9DAFFA-FC38-497B-A952-D13D8436C94D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75F45143-A365-4C32-A2D5-56BDADCE76CC}

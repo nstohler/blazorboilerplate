@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorBoilerplate.Bonus\BlazorBoilerplate.Bonus.csproj" />
+    <ProjectReference Include="..\Core.LibLog\Core.LibLog.csproj" />
+  </ItemGroup>
+
+</Project>

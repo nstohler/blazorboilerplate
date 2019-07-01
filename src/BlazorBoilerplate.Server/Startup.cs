@@ -18,10 +18,12 @@ using BlazorBoilerplate.Server.Services;
 using BlazorBoilerplate.Server.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
+using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using BlazorBoilerplate.Startup;
+using HelloWorld.Controllers;
 
 namespace BlazorBoilerplate.Server
 {
@@ -106,7 +108,10 @@ namespace BlazorBoilerplate.Server
                 };
             });
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddApplicationPart(typeof(SimpleController).GetTypeInfo().Assembly)
+                ;
 
             services.AddSwaggerDocument(config =>
             {

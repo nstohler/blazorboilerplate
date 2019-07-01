@@ -48,6 +48,7 @@
     <ProjectReference Include="..\BlazorBoilerplate.Shared\BlazorBoilerplate.Shared.csproj" />
     <ProjectReference Include="..\BlazorBoilerplate.Startup\BlazorBoilerplate.Startup.csproj" />
     <ProjectReference Include="..\Core.LibLog\Core.LibLog.csproj" />
+    <ProjectReference Include="..\HelloWorld.Controllers\HelloWorld.Controllers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

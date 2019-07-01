@@ -27,7 +27,7 @@ namespace BlazorBoilerplate.Server
 
             // serilog: read config from appsettings.{env}.json
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.{appsettingsEnvName}.json", true, true)
+                .AddJsonFile($"appsettings.{appsettingsEnvName}.json")
                 .Build();
 
             Log.Logger = new LoggerConfiguration()
