@@ -23,6 +23,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using BlazorBoilerplate.Startup;
+using BlazorBoilerplate.Startup.Helpers;
 using HelloWorld.Controllers;
 
 namespace BlazorBoilerplate.Server
@@ -138,12 +139,12 @@ namespace BlazorBoilerplate.Server
             services.AddTransient<IEmailService, EmailService>();
 
             // AutoMapper DI registration
-            var assemblies = AutofacBootstrapModule.GetAssemblies().ToList();
+            var assemblies = AssemblyScanner.GetFilteredAssemblies().ToList();
             services.AddAutoMapper(assemblies);
 
             // Autofac bootstrapping
             // https://autofaccn.readthedocs.io/en/latest/integration/aspnetcore.html#quick-start-without-configurecontainer
-            _applicationContainer = Bootstrapper.Initialize(builder => { builder.Populate(services); });
+            _applicationContainer = Bootstrapper.Initialize(assemblies, builder => { builder.Populate(services); });
 
             // Create the IServiceProvider based on the container.
             return new AutofacServiceProvider(_applicationContainer);

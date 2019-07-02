@@ -14,11 +14,10 @@ namespace BlazorBoilerplate.Startup
     {
         private static IContainer _autofacContainer = null;
 
-        public static IContainer Initialize(Action<ContainerBuilder> populateWithServices = null)
+        public static IContainer Initialize(List<Assembly> assemblies,
+            Action<ContainerBuilder> populateWithServices = null)
         {
             EnsureArg.IsTrue(_autofacContainer == null, nameof(_autofacContainer));
-
-            var assemblies = AutofacBootstrapModule.GetAssemblies().ToList();
 
             _autofacContainer = Bootstrapper.CreateContainer(assemblies, builder =>
             {
