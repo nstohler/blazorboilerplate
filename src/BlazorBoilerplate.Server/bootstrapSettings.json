@@ -1,0 +1,23 @@
+{
+  "AssemblyScanner": {
+    "AssemblyFilters": [
+      "Core"
+    ],
+    "ValidAssemblyNameEndings": [
+      "Config",
+      "Controllers",
+      "Data",
+      "Data.Interfaces",
+      "Domain",
+      "Models",
+      "Services",
+      "ViewModels",
+      "Auth",
+      "Claims",
+      "Identity"
+    ],
+    "ExcludeAssemblyNameEndings": [
+      "Client"
+    ]
+  }
+}

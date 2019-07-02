@@ -23,7 +23,6 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using BlazorBoilerplate.Startup;
-using BlazorBoilerplate.Startup.Helpers;
 using HelloWorld.Controllers;
 
 namespace BlazorBoilerplate.Server
